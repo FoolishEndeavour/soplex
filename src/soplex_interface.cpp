@@ -20,21 +20,21 @@ void SoPlex_free(void* soplex)
 }
 
 /** reads LP file in LP or MPS format according to READMODE parameter; returns true on success **/
-int SoPlex_readInstanceFile(void* soplex, const char* filename)
+bool SoPlex_readInstanceFile(void* soplex, const char* filename)
 {
    SoPlex* so = (SoPlex*)(soplex);
    return so->readFile(filename);
 }
 
 /** reads basis information from filename and returns true on success **/
-int SoPlex_readBasisFile(void* soplex, const char* filename)
+bool SoPlex_readBasisFile(void* soplex, const char* filename)
 {
    SoPlex* so = (SoPlex*)(soplex);
    return so->readBasisFile(filename);
 }
 
 /** reads settings from filename and returns true on success **/
-int SoPlex_readSettingsFile(void* soplex, const char* filename)
+bool SoPlex_readSettingsFile(void* soplex, const char* filename)
 {
    SoPlex* so = (SoPlex*)(soplex);
    return so->loadSettingsFile(filename);
@@ -78,31 +78,45 @@ void SoPlex_setRational(void* soplex)
 }
 
 /** sets boolean parameter value **/
-void SoPlex_setBoolParam(void* soplex, int paramcode, int paramvalue)
+bool SoPlex_setBoolParam(void* soplex, SoPlex_BoolParamEnum paramcode, bool paramvalue)
 {
    SoPlex* so = (SoPlex*)(soplex);
-   so->setBoolParam((SoPlex::BoolParam)paramcode, paramvalue);
+   return so->setBoolParam((SoPlex::BoolParam)paramcode, paramvalue);
 }
 
 /** sets integer parameter value **/
-void SoPlex_setIntParam(void* soplex, int paramcode, int paramvalue)
+bool SoPlex_setIntParam(void* soplex, SoPlex_IntParamEnum paramcode, int paramvalue)
 {
    SoPlex* so = (SoPlex*)(soplex);
-   so->setIntParam((SoPlex::IntParam)paramcode, paramvalue);
+   return so->setIntParam((SoPlex::IntParam)paramcode, paramvalue);
 }
 
 /** sets real parameter value **/
-void SoPlex_setRealParam(void* soplex, int paramcode, double paramvalue)
+bool SoPlex_setRealParam(void* soplex, SoPlex_RealParamEnum paramcode, double paramvalue)
 {
    SoPlex* so = (SoPlex*)(soplex);
-   so->setRealParam((SoPlex::RealParam)paramcode, paramvalue);
+   return so->setRealParam((SoPlex::RealParam)paramcode, paramvalue);
+}
+
+/** returns value of boolean parameter **/
+bool SoPlex_getBoolParam(void* soplex, SoPlex_BoolParamEnum paramcode)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->boolParam((SoPlex::BoolParam)paramcode);
 }
 
 /** returns value of integer parameter **/
-int SoPlex_getIntParam(void* soplex, int paramcode)
+int SoPlex_getIntParam(void* soplex, SoPlex_IntParamEnum paramcode)
 {
    SoPlex* so = (SoPlex*)(soplex);
    return so->intParam((SoPlex::IntParam)paramcode);
+}
+
+/** returns value of real parameter **/
+double SoPlex_getRealParam(void* soplex, SoPlex_RealParamEnum paramcode)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->realParam((SoPlex::RealParam)paramcode);
 }
 
 /** adds a single (floating point) column **/
