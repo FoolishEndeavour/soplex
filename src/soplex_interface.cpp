@@ -1,5 +1,6 @@
 #include "soplex.h"
 #include "soplex_interface.h"
+#include "soplex_enumerations.h"
 #include <iostream>
 
 using namespace soplex;

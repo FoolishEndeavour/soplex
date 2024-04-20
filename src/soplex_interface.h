@@ -1,4 +1,7 @@
 
+#ifndef _SOPLEX_C_INTERFACE_H_
+#define _SOPLEX_C_INTERFACE_H_
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -198,3 +201,5 @@ void SoPlex_getRowBoundsRational(void* soplex, int i, long* lbnum, long* lbdenom
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* _SOPLEX_C_INTERFACE_H_ */
