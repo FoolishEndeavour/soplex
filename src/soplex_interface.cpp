@@ -1,6 +1,6 @@
 #include "soplex.h"
-#include "soplex_interface.h"
 #include "soplex_enumerations.h"
+#include "soplex_interface.h"
 #include <iostream>
 
 using namespace soplex;
@@ -49,7 +49,7 @@ bool SoPlex_writeInstanceFileReal(void* soplex, const char* filename)
 }
 
 /** writes rational LP to file; LP or MPS format is chosen from the extension in \p filename; returns true on success */
-bool SoPlex_writeInstanceFileReal(void* soplex, const char* filename)
+bool SoPlex_writeInstanceFileRational(void* soplex, const char* filename)
 {
    SoPlex* so = (SoPlex*)(soplex);
    return so->writeFileRational(filename);
@@ -230,7 +230,7 @@ void SoPlex_removeColRational(void* soplex, int colidx)
 #endif
    /* coverity[unreachable] */
    SoPlex* so = (SoPlex*)(soplex);
-   so->removeColRational(colIdx);
+   so->removeColRational(colidx);
 }
 
 /** adds a single (floating point) row **/

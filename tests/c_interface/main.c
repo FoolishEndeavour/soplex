@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <soplex_enumerations.h>
 #include <soplex_interface.h>
 #include <assert.h>
 #include <string.h>
@@ -76,11 +77,11 @@ void test_rational(void)
    /* create LP via rows */
 
    void *soplex = SoPlex_create();
-   long infty = 1000000;
-   long rownums[] = {-1, 1};
-   long rowdenoms[] = {1, 1};
-   long objnums[] = {1, 1};
-   long objdenoms[] = {1, 1};
+   SoPlex_RatIntType infty = 1000000;
+   SoPlex_RatIntType rownums[] = {-1, 1};
+   SoPlex_RatIntType rowdenoms[] = {1, 1};
+   SoPlex_RatIntType objnums[] = {1, 1};
+   SoPlex_RatIntType objdenoms[] = {1, 1};
    double primal[] = {0.0,0.0};
 
    /* use rational solver */
@@ -104,12 +105,12 @@ void test_rational(void)
 
    /* create LP via columns */
    void *soplex2 = SoPlex_create();
-   long colnums1[] = {-1};
-   long coldenoms1[] = {1};
-   long colnums2[] = {1};
-   long coldenoms2[] = {1};
-   long lhsnums[] = {-1};
-   long lhsdenoms[] = {5};
+   SoPlex_RatIntType colnums1[] = {-1};
+   SoPlex_RatIntType coldenoms1[] = {1};
+   SoPlex_RatIntType colnums2[] = {1};
+   SoPlex_RatIntType coldenoms2[] = {1};
+   SoPlex_RatIntType lhsnums[] = {-1};
+   SoPlex_RatIntType lhsdenoms[] = {5};
 
    /* use rational solver */
    SoPlex_setRational(soplex2);
