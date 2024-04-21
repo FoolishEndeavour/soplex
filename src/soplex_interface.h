@@ -217,25 +217,11 @@ bool SoPlex_isDualFeasible(void* soplex);
 /** is Farkas proof of infeasibility available? */
 bool SoPlex_hasDualFarkas(void* soplex);
 
+/** returns status of row */
+SoPlex_VarStatusEnum SoPlex_basisRowStatus(void* soplex, int rowidx);
 
-/** returns status of row
- *  0 -> row is set to its upper bound
- *  1 -> row is set to its lower bound
- *  2 -> row is fixed to its identical bounds
- *  4 -> row is basic
- *  5 -> nothing known about basis status
- **/
-int SoPlex_basisRowStatus(void* soplex, int rowidx);
-
-/** returns status of column
- *  0 -> column is set to its upper bound
- *  1 -> column is set to its lower bound
- *  2 -> column is fixed to its identical bounds
- *  3 -> column is free and fixed to zero
- *  4 -> column is basic
- *  5 -> nothing known about basis status
- **/
-int SoPlex_basisColStatus(void* soplex, int colidx);
+/** returns status of column */
+SoPlex_VarStatusEnum SoPlex_basisColStatus(void* soplex, int colidx);
 
 /** get non-zero entries and indices of row i **/
 void SoPlex_getRowVectorReal(void* soplex, int i, int* nnonzeros, long* indices, double* coefs);

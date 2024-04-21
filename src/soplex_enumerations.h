@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-    /// boolean parameters
+   /// boolean parameters
    // copied from soplex .h
    typedef enum
    {
@@ -531,6 +531,43 @@ extern "C" {
       RATIONALPARAM_COUNT = 0
    } SoPlex_RationalParamEnum;
 #endif
+
+
+typedef enum 
+{
+   ON_UPPER,      ///< variable set to its upper bound.
+   ON_LOWER,      ///< variable set to its lower bound.
+   FIXED,         ///< variable fixed to identical bounds.
+   ZERO,          ///< free variable fixed to zero.
+   BASIC,         ///< variable is basic.
+   UNDEFINED      ///< nothing known about basis status (possibly due to a singular basis in transformed problem)
+} SoPlex_VarStatusEnum;
+
+
+typedef enum 
+{
+   ERROR          = -15, ///< an error occured.
+   NO_RATIOTESTER = -14, ///< No ratiotester loaded
+   NO_PRICER      = -13, ///< No pricer loaded
+   NO_SOLVER      = -12, ///< No linear solver loaded
+   NOT_INIT       = -11, ///< not initialised error
+   ABORT_CYCLING  = -8,  ///< solve() aborted due to detection of cycling.
+   ABORT_TIME     = -7,  ///< solve() aborted due to time limit.
+   ABORT_ITER     = -6,  ///< solve() aborted due to iteration limit.
+   ABORT_VALUE    = -5,  ///< solve() aborted due to objective limit.
+   SINGULAR       = -4,  ///< Basis is singular, numerical troubles?
+   NO_PROBLEM     = -3,  ///< No Problem has been loaded.
+   REGULAR        = -2,  ///< LP has a usable Basis (maybe LP is changed).
+   RUNNING        = -1,  ///< algorithm is running
+   UNKNOWN        =  0,  ///< nothing known on loaded problem.
+   OPTIMAL        =  1,  ///< LP has been solved to optimality.
+   UNBOUNDED      =  2,  ///< LP has been proven to be primal unbounded.
+   INFEASIBLE     =  3,  ///< LP has been proven to be primal infeasible.
+   INForUNBD      =  4,   ///< LP is primal infeasible or unbounded.
+   OPTIMAL_UNSCALED_VIOLATIONS =  5   ///< LP has beed solved to optimality but unscaled solution contains violations.
+} SoPlex_StatusEnum;
+
+
 
 
 #ifdef __cplusplus
