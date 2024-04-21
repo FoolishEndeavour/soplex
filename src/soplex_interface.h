@@ -89,6 +89,9 @@ void SoPlex_removeColReal(void* soplex, int colidx);
 void SoPlex_addColRational(void* soplex, long* colnums, long* coldenoms, int colsize, int nnonzeros,
                            long objvalnum, long objvaldenom, long lbnum, long lbdenom, long ubnum, long ubdenom);
 
+/** removes a single (floating point) column **/
+void SoPlex_removeColRational(void* soplex, int colidx);
+
 /** adds a single (floating point) row **/
 void SoPlex_addRowReal(void* soplex, double* rowentries, int rowsize, int nnonzeros, double lb,
                        double ub);
@@ -99,6 +102,9 @@ void SoPlex_removeRowReal(void* soplex, int rowidx);
 /** adds a single rational row **/
 void SoPlex_addRowRational(void* soplex, long* rownums, long* rowdenoms, int rowsize, int nnonzeros,
                            long lbnum, long lbdenom, long ubnum, long ubdenom);
+
+/** removes a single (floating point) row **/
+void SoPlex_removeRowRational(void* soplex, int rowidx);
 
 /** gets primal solution **/
 void SoPlex_getPrimalReal(void* soplex, double* primal, int dim);
@@ -194,6 +200,23 @@ void SoPlex_changeVarUpperReal(void* soplex, int colidx, double ub);
 
 /** gets upper bound vector of columns into ub **/
 void SoPlex_getUpperReal(void* soplex, double* ub, int dim);
+
+
+/** is stored primal solution feasible? */
+bool SoPlex_isPrimalFeasible(void* soplex);
+
+/** is a solution available (not neccessarily feasible)? */
+bool SoPlex_hasSol(void* soplex);
+
+/** is a primal unbounded ray available? */
+bool SoPlex_hasPrimalRay(void* soplex);
+
+/** is stored dual solution feasible? */
+bool SoPlex_isDualFeasible(void* soplex);
+
+/** is Farkas proof of infeasibility available? */
+bool SoPlex_hasDualFarkas(void* soplex);
+
 
 /** returns status of row
  *  0 -> row is set to its upper bound

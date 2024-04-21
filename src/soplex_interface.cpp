@@ -41,7 +41,6 @@ bool SoPlex_readSettingsFile(void* soplex, const char* filename)
 }
 
 
-
 /** writes real LP to file; LP or MPS format is chosen from the extension in \p filename; returns true on success */
 bool SoPlex_writeInstanceFileReal(void* soplex, const char* filename)
 {
@@ -223,6 +222,17 @@ void SoPlex_addColRational(void* soplex, long* colnums, long* coldenoms, int col
    so->addColRational(LPColRational(objval, col, upper, lower));
 }
 
+/** removes a single (floating point) column **/
+void SoPlex_removeColRational(void* soplex, int colidx)
+{
+#ifndef SOPLEX_WITH_BOOST
+   throw SPxException("Rational functions cannot be used when built without Boost.");
+#endif
+   /* coverity[unreachable] */
+   SoPlex* so = (SoPlex*)(soplex);
+   so->removeColRational(colIdx);
+}
+
 /** adds a single (floating point) row **/
 void SoPlex_addRowReal(void* soplex, double* rowentries, int rowsize, int nnonzeros, double lb,
                        double ub)
@@ -276,6 +286,17 @@ void SoPlex_addRowRational(void* soplex, long* rownums, long* rowdenoms, int row
    }
 
    so->addRowRational(LPRowRational(lower, row, upper));
+}
+
+/** removes a single (floating point) row **/
+void SoPlex_removeRowRational(void* soplex, int rowidx)
+{
+#ifndef SOPLEX_WITH_BOOST
+   throw SPxException("Rational functions cannot be used when built without Boost.");
+#endif
+   /* coverity[unreachable] */
+   SoPlex* so = (SoPlex*)(soplex);
+   so->removeRowRational(rowidx);
 }
 
 /** gets primal solution **/
@@ -472,6 +493,43 @@ void SoPlex_changeRhsRational(void* soplex, long* rhsnums, long* rhsdenoms, int 
    VectorRational rhs(dim, rhsrational);
    so->changeRhsRational(rhs);
 }
+
+
+/** is stored primal solution feasible? */
+bool SoPlex_isPrimalFeasible(void* soplex)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->isPrimalFeasible();
+}
+
+/** is a solution available (not neccessarily feasible)? */
+bool SoPlex_hasSol(void* soplex)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->hasSol();
+}
+
+/** is a primal unbounded ray available? */
+bool SoPlex_hasPrimalRay(void* soplex)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->hasPrimalRay();
+}
+
+/** is stored dual solution feasible? */
+bool SoPlex_isDualFeasible(void* soplex)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->isDualFeasible();
+}
+
+/** is Farkas proof of infeasibility available? */
+bool SoPlex_hasDualFarkas(void* soplex)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->hasDualFarkas();
+}
+
 
 /** returns the objective value if a primal solution is available **/
 double SoPlex_objValueReal(void* soplex)
