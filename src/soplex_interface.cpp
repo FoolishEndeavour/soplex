@@ -40,6 +40,52 @@ bool SoPlex_readSettingsFile(void* soplex, const char* filename)
    return so->loadSettingsFile(filename);
 }
 
+
+
+/** writes real LP to file; LP or MPS format is chosen from the extension in \p filename; returns true on success */
+bool SoPlex_writeInstanceFileReal(void* soplex, const char* filename)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->writeFileReal(filename);
+}
+
+/** writes rational LP to file; LP or MPS format is chosen from the extension in \p filename; returns true on success */
+bool SoPlex_writeInstanceFileReal(void* soplex, const char* filename)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->writeFileRational(filename);
+}
+
+/** writes dual of real LP to file; LP or MPS format is chosen from the extension in \p filename; returns true on success */
+bool SoPlex_writeDualFileReal(void* soplex, const char* filename)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->writeDualFileReal(filename);
+}
+
+/** writes basis information to \p filename; returns true on success */
+bool SoPlex_writeBasisFile(void* soplex, const char* filename)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->writeBasisFile(filename);
+}
+
+/** writes internal LP, basis information, and parameter settings */
+void SoPlex_writeStateFileReal(void* soplex, const char* filename)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->writeStateReal(filename);
+}
+
+/** writes internal LP, basis information, and parameter settings */
+void SoPlex_writeStateFileRational(void* soplex, const char* filename)
+{
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->writeStateRational(filename);
+}
+
+
+
 /** clears the (floating point) LP **/
 void SoPlex_clearLPReal(void* soplex)
 {
@@ -425,13 +471,6 @@ void SoPlex_changeRhsRational(void* soplex, long* rhsnums, long* rhsdenoms, int 
 
    VectorRational rhs(dim, rhsrational);
    so->changeRhsRational(rhs);
-}
-
-/** write LP to file; LP or MPS format is chosen from the extension in filename **/
-void SoPlex_writeFileReal(void* soplex, char* filename)
-{
-   SoPlex* so = (SoPlex*)(soplex);
-   so->writeFile(filename);
 }
 
 /** returns the objective value if a primal solution is available **/
