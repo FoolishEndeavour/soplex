@@ -189,8 +189,8 @@ void SoPlex_removeColReal(void* soplex, int colidx)
 }
 
 /** adds a single rational column **/
-void SoPlex_addColRational(void* soplex, long* colnums, long* coldenoms, int colsize, int nnonzeros,
-                           long objvalnum, long objvaldenom, long lbnum, long lbdenom, long ubnum, long ubdenom)
+void SoPlex_addColRational(void* soplex, SoPlex_RatIntType* colnums, SoPlex_RatIntType* coldenoms, int colsize, int nnonzeros,
+                           SoPlex_RatIntType objvalnum, SoPlex_RatIntType objvaldenom, SoPlex_RatIntType lbnum, SoPlex_RatIntType lbdenom, SoPlex_RatIntType ubnum, SoPlex_RatIntType ubdenom)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -258,8 +258,8 @@ void SoPlex_removeRowReal(void* soplex, int rowidx)
 }
 
 /** adds a single rational row **/
-void SoPlex_addRowRational(void* soplex, long* rownums, long* rowdenoms, int rowsize, int nnonzeros,
-                           long lbnum, long lbdenom, long ubnum, long ubdenom)
+void SoPlex_addRowRational(void* soplex, SoPlex_RatIntType* rownums, SoPlex_RatIntType* rowdenoms, int rowsize, int nnonzeros,
+                           SoPlex_RatIntType lbnum, SoPlex_RatIntType lbdenom, SoPlex_RatIntType ubnum, SoPlex_RatIntType ubdenom)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -386,7 +386,7 @@ void SoPlex_changeObjReal(void* soplex, double* obj, int dim)
 }
 
 /** changes rational objective function vector to obj **/
-void SoPlex_changeObjRational(void* soplex, long* objnums, long* objdenoms, int dim)
+void SoPlex_changeObjRational(void* soplex, SoPlex_RatIntType* objnums, SoPlex_RatIntType* objdenoms, int dim)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -422,7 +422,7 @@ void SoPlex_changeRowLhsReal(void* soplex, int rowidx, double lhs)
 }
 
 /** changes rational left-hand side vector for constraints to lhs **/
-void SoPlex_changeLhsRational(void* soplex, long* lhsnums, long* lhsdenoms, int dim)
+void SoPlex_changeLhsRational(void* soplex, SoPlex_RatIntType* lhsnums, SoPlex_RatIntType* lhsdenoms, int dim)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -474,7 +474,7 @@ void SoPlex_changeRowRangeReal(void* soplex, int rowidx, double lhs, double rhs)
 }
 
 /** changes rational right-hand side vector for constraints to rhs **/
-void SoPlex_changeRhsRational(void* soplex, long* rhsnums, long* rhsdenoms, int dim)
+void SoPlex_changeRhsRational(void* soplex, SoPlex_RatIntType* rhsnums, SoPlex_RatIntType* rhsdenoms, int dim)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -576,8 +576,8 @@ void SoPlex_changeVarBoundsReal(void* soplex, int colidx, double lb, double ub)
 }
 
 /** changes rational bounds of a column to lbnum/lbdenom and ubnum/ubdenom **/
-void SoPlex_changeVarBoundsRational(void* soplex, int colidx, long lbnum, long lbdenom, long ubnum,
-                                    long ubdenom)
+void SoPlex_changeVarBoundsRational(void* soplex, int colidx, SoPlex_RatIntType lbnum, SoPlex_RatIntType lbdenom, SoPlex_RatIntType ubnum,
+                                    SoPlex_RatIntType ubdenom)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -694,8 +694,8 @@ void SoPlex_getRowVectorReal(void* soplex, int i, int* nnonzeros, long* indices,
 }
 
 /** get non-zero entries and indices of rational row i **/
-void SoPlex_getRowVectorRational(void* soplex, int i, int* nnonzeros, long* indices, long* coefsnum,
-                                 long* coefsdenom)
+void SoPlex_getRowVectorRational(void* soplex, int i, int* nnonzeros, long* indices, SoPlex_RatIntType* coefsnum,
+                                 SoPlex_RatIntType* coefsdenom)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -711,8 +711,8 @@ void SoPlex_getRowVectorRational(void* soplex, int i, int* nnonzeros, long* indi
 
    for(int j = 0; j < *nnonzeros; ++j)
    {
-      coefsnum[j] = (long int) numerator(row.value(j));
-      coefsdenom[j] = (long int) denominator(row.value(j));
+      coefsnum[j] = (SoPlex_RatIntType) numerator(row.value(j));
+      coefsdenom[j] = (SoPlex_RatIntType) denominator(row.value(j));
       indices[j] = row.index(j);
    }
 
@@ -729,17 +729,17 @@ void SoPlex_getRowBoundsReal(void* soplex, int i, double* lb, double* ub)
 }
 
 /** get rational lower and upper bounds of row i **/
-void SoPlex_getRowBoundsRational(void* soplex, int i, long* lbnum, long* lbdenom, long* ubnum,
-                                 long* ubdenom)
+void SoPlex_getRowBoundsRational(void* soplex, int i, SoPlex_RatIntType* lbnum, SoPlex_RatIntType* lbdenom, SoPlex_RatIntType* ubnum,
+                                 SoPlex_RatIntType* ubdenom)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
 #else
    SoPlex* so = (SoPlex*)(soplex);
 
-   *lbnum = (long int) numerator(so->lhsRational(i));
-   *lbdenom = (long int) denominator(so->lhsRational(i));
-   *ubnum = (long int) numerator(so->rhsRational(i));
-   *ubdenom = (long int) denominator(so->rhsRational(i));
+   *lbnum = (SoPlex_RatIntType) numerator(so->lhsRational(i));
+   *lbdenom = (SoPlex_RatIntType) denominator(so->lhsRational(i));
+   *ubnum = (SoPlex_RatIntType) numerator(so->rhsRational(i));
+   *ubdenom = (SoPlex_RatIntType) denominator(so->rhsRational(i));
 #endif
 }
