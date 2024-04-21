@@ -213,7 +213,7 @@ set_target_properties(soplex PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/$
 
 # install the header files of soplex
 install(FILES ${headers} ${PROJECT_BINARY_DIR}/soplex/config.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/soplex)
-install(FILES soplex.h soplex.hpp soplex_interface.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES soplex.h soplex.hpp soplex_interface.h soplex_enumerations.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(FILES
      ${PROJECT_SOURCE_DIR}/src/soplex/external/fmt/chrono.h
