@@ -397,7 +397,7 @@ extern "C" {
    } SoPlex_CheckModeEnum;
 
    /** values for parameter TIMER */
-   enum
+   typedef enum
    {
       /** disable timing */
       TIMER_OFF = 0,
