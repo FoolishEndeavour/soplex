@@ -12,7 +12,7 @@ extern "C" {
 
 /** this is type of numerator and denominator used to interface rational solver */
 /* it may not match type used internally */
-typedef signed long SoPlex_RatIntType;
+typedef signed long long SoPlex_RatIntType;
 
 /** creates new SoPlex struct **/
 void* SoPlex_create();
