@@ -145,13 +145,18 @@ bool EQ(int a, int b);
 #else
 #define SOPLEX_DO_WITH_TMP_VERBOSITY( verbosity, spxout, do_something ) \
    {                                                             \
-     if( ( &spxout != NULL ) && !boolParam(SoPlex::IGNORE_VERBOSITY_OVERRIDE) )                                      \
-     {                                                           \
-        if( verbosity <= spxout.getVerbosity() )                 \
+     if( &spxout != NULL ) )                                     \
+     {     
+        bool adjust = (verbosity <= spxout.getVerbosity())       \
+                     && spxout.getAllowVerbOverride();           \
+        if( adjust )                                             \
         {                                                        \
            const SPxOut::Verbosity  old_verbosity = spxout.getVerbosity(); \
            spxout.setVerbosity( verbosity );                     \
-           do_something;                                         \
+        }                                                        \
+        do_something;                                            \
+        if( adjust )                                             \
+        {                                                        \
            spxout.setVerbosity( old_verbosity );                 \
         }                                                        \
      }                                                           \
