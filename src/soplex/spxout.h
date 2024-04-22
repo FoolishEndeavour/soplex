@@ -134,6 +134,18 @@ public:
       return m_verbosity;
    }
 
+   virtual void
+   setAllowVerbOverride(const bool& o)
+   {
+      m_verbosity_override = o;
+   }
+   ///
+   inline bool
+   getAllowVerbOverride()
+   const
+   {
+      return m_verbosity_override;
+   }
    ///@}
 
    //----------------------------------------
@@ -221,6 +233,9 @@ private:
    ///@{
    /// verbosity level
    Verbosity               m_verbosity;
+   /// allow temporary verbosity overrides
+   bool                    m_verbosity_override;
+
    /// array of pointers to internal streams, indexed by verbosity level
    std::ostream**          m_streams;
    ///@}

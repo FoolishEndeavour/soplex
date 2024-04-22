@@ -31,6 +31,7 @@ namespace soplex
 /// constructor
 SPxOut::SPxOut()
    : m_verbosity(ERROR)
+   , m_verbosity_override(true) // previous (unctrolled) default was true
    , m_streams(0)
 {
    spx_alloc(m_streams, INFO3 + 1);
@@ -51,8 +52,10 @@ SPxOut::~SPxOut()
 
 SPxOut& SPxOut::operator=(const SPxOut& base)
 {
-   if(this != &base)
+   if(this != &base) {
       m_verbosity = base.m_verbosity;
+      m_verbosity_override = base.m_verbosity_override;
+   }
 
    for(int i = DEBUG; i <= INFO3; ++i)
       m_streams[ i ] = base.m_streams[ i ];
@@ -63,6 +66,7 @@ SPxOut& SPxOut::operator=(const SPxOut& base)
 SPxOut::SPxOut(const SPxOut& rhs)
 {
    m_verbosity = rhs.m_verbosity;
+   m_verbosity_override = rhs.m_verbosity_override;
    m_streams = 0;
    spx_alloc(m_streams, INFO3 + 1);
    m_streams = new(m_streams) std::ostream*[INFO3 + 1];
