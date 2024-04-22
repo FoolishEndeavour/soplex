@@ -145,7 +145,7 @@ bool EQ(int a, int b);
 #else
 #define SOPLEX_DO_WITH_TMP_VERBOSITY( verbosity, spxout, do_something ) \
    {                                                             \
-     if( &spxout != NULL )                                       \
+     if( ( &spxout != NULL ) && !boolParam(SoPlex::IGNORE_VERBOSITY_OVERRIDE) )                                      \
      {                                                           \
         if( verbosity <= spxout.getVerbosity() )                 \
         {                                                        \

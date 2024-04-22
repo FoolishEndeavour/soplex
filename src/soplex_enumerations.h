@@ -88,8 +88,11 @@ extern "C" {
       /** try different settings when solve fails */
       RECOVERY_MECHANISM = 25,
 
+      /** ignore tmp verbosity override */
+      IGNORE_VERBOSITY_OVERRIDE = 26,
+
       /** number of boolean parameters */
-      BOOLPARAM_COUNT = 26
+      BOOLPARAM_COUNT = 27
    } SoPlex_BoolParamEnum;
 
 

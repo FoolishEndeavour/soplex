@@ -1028,8 +1028,11 @@ public:
       /// try different settings when solve fails
       RECOVERY_MECHANISM = 25,
 
+      // ignore verebosity override
+      IGNORE_VERBOSITY_OVERRIDE = 26,
+
       /// number of boolean parameters
-      BOOLPARAM_COUNT = 26
+      BOOLPARAM_COUNT = 27
    } BoolParam;
 
    /// integer parameters
