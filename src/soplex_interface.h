@@ -2,6 +2,9 @@
 #ifndef _SOPLEX_C_INTERFACE_H_
 #define _SOPLEX_C_INTERFACE_H_
 
+/* the enums are used in headers */
+#include "soplex_enumerations.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -127,7 +130,7 @@ void SoPlex_getDualReal(void* soplex, double* dual, int dim);
 void SoPlex_getRedCostReal(void* soplex, double* rc, int dim);
 
 /** optimizes the given LP and returns solver status **/
-int SoPlex_optimize(void* soplex);
+int SoPlex_optimize(void* soplex, volatile bool* interrupt);
 
 /** returns the current solver status **/
 int SoPlex_getStatus(void* soplex);
