@@ -200,10 +200,10 @@ SoPlexBase<R>::Settings::BoolParam::BoolParam()
       "enable recovery mechanism for when the solve fails";
    defaultValue[SoPlexBase<R>::RECOVERY_MECHANISM] = false;
 
-   name[SoPlexBase<R>::IGNORE_VERBOSITY_OVERRIDE] = "ignore_verbosity_override";
-   description[SoPlexBase<R>::IGNORE_VERBOSITY_OVERRIDE] =
-      "disable tmp verbosity overrides";
-   defaultValue[SoPlexBase<R>::IGNORE_VERBOSITY_OVERRIDE] = false;   
+   name[SoPlexBase<R>::ALLOW_VERBOSITY_OVERRIDE] = "allow_verbosity_override";
+   description[SoPlexBase<R>::ALLOW_VERBOSITY_OVERRIDE] =
+      "allow tmp verbosity overrides";
+   defaultValue[SoPlexBase<R>::ALLOW_VERBOSITY_OVERRIDE] = true; // default prior to control
 
 }
 
@@ -5920,6 +5920,10 @@ bool SoPlexBase<R>::setBoolParam(const BoolParam param, const bool value, const 
       break;
 
    case RECOVERY_MECHANISM:
+      break;
+
+   case ALLOW_VERBOSITY_OVERRIDE:
+      spxout.setAllowVerbOverride(value);
       break;
 
    default:
