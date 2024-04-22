@@ -147,14 +147,15 @@ bool EQ(int a, int b);
    {                                                             \
      if( &spxout != NULL )                                       \
      {                                                           \
-        const SPxOut::Verbosity  old_verbosity = spxout.getVerbosity(); \
-        bool adjust = (verbosity < old_verbosity)                \
-                     && spxout.getAllowVerbOverride();           \
+        const SPxOut::Verbosity old_verbosity = spxout.getVerbosity(); \
+        const bool adjust = (verbosity < old_verbosity)          \
+                          && spxout.getAllowVerbOverride();      \
+        const bool doit = adjust || (verbosity == old_verbosity); \
         if( adjust )                                             \
         {                                                        \
            spxout.setVerbosity( verbosity );                     \
         }                                                        \
-        do_something;                                            \
+        if ( doit ) {  do_something;  }                          \
         if( adjust )                                             \
         {                                                        \
            spxout.setVerbosity( old_verbosity );                 \
