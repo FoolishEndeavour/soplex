@@ -74,6 +74,7 @@ void test_real(void)
 #ifdef SOPLEX_WITH_GMP
 void test_rational(void)
 {
+   volatile bool interruption = false;
    /* create LP via rows */
 
    void *soplex = SoPlex_create();
@@ -95,7 +96,7 @@ void test_rational(void)
    SoPlex_changeObjRational(soplex, objnums, objdenoms, 2);
 
    /* optimize and check rational solution and objective value */
-   int result = SoPlex_optimize(soplex);
+   int result = SoPlex_optimize2(soplex, &interruption);
    assert(result == 1);
    UNUSED(result); /* add this to avoid unused variable warining */
    assert(strcmp(SoPlex_getPrimalRationalString(soplex, 2), "0 1/5 ") == 0);
@@ -126,7 +127,7 @@ void test_rational(void)
    SoPlex_changeLhsRational(soplex2, lhsnums, lhsdenoms, 1);
 
    /* optimize and check rational solution and objective value */
-   result = SoPlex_optimize(soplex2);
+   result = SoPlex_optimize2(soplex2, &interruption);
    assert(result == 1);
    assert(strcmp(SoPlex_getPrimalRationalString(soplex2, 2), "0 -1/5 ") == 0);
    assert(strcmp(SoPlex_objValueRationalString(soplex2), "-1/25") == 0);

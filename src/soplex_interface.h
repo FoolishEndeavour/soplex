@@ -130,7 +130,8 @@ void SoPlex_getDualReal(void* soplex, double* dual, int dim);
 void SoPlex_getRedCostReal(void* soplex, double* rc, int dim);
 
 /** optimizes the given LP and returns solver status **/
-int SoPlex_optimize(void* soplex, volatile bool* interrupt);
+int SoPlex_optimize(void* soplex);
+int SoPlex_optimize2(void* soplex, volatile bool* interrupt);
 
 /** returns the current solver status **/
 int SoPlex_getStatus(void* soplex);

@@ -350,7 +350,13 @@ void SoPlex_getRedCostReal(void* soplex, double* rc, int dim)
 }
 
 /** optimizes the given LP **/
-int SoPlex_optimize(void* soplex, volatile bool* interrupt)
+int SoPlex_optimize(void* soplex)
+{
+   bool interruption = false;
+   SoPlex* so = (SoPlex*)(soplex);
+   return so->optimize(&interruption);
+}
+int SoPlex_optimize2(void* soplex, volatile bool* interrupt)
 {
    SoPlex* so = (SoPlex*)(soplex);
    return so->optimize(interrupt);
