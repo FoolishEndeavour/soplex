@@ -586,7 +586,7 @@ void SoPlex_objValueRational(void* soplex, mpq_t* objVal)
    SoPlex* so = (SoPlex*)(soplex);
 
    // assumes objVal was inited by caller !
-   mpq_set(objVal, so->objValueRational().data());
+   mpq_set(objVal, so->objValueRational().backend().data());
    // assumes objVal will be cleared by caller !
    return;
 }

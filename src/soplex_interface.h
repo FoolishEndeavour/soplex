@@ -25,6 +25,8 @@ typedef signed long long SoPlex_RatIntType;
  */
 typedef struct IGNORE_FORWORD __mpz_struct;
 typedef __mpz_struct mpz_t[1];
+typedef struct IGNORE_FORWORD __mpq_struct;
+typedef __mpz_struct mpq_t[1];
 #endif
 
 /** creates new SoPlex struct **/
