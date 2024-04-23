@@ -1,4 +1,6 @@
-#include <ctypes>
+#include <cstdint>
+#include <cstddef>
+#include <cstdlib>
 #include <iostream>
 
 #include "soplex.h"
