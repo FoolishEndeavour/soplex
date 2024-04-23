@@ -1,7 +1,12 @@
+#include <ctypes>
+#include <iostream>
+
 #include "soplex.h"
 #include "soplex_enumerations.h"
+
+// include soplex first, so GMP is included first
 #include "soplex_interface.h"
-#include <iostream>
+
 
 using namespace soplex;
 

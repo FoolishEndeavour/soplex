@@ -5,18 +5,6 @@
 /* the enums are used in headers */
 #include "soplex_enumerations.h"
 
-/*
-#ifdef SOPLEX_WITH_GMP
-#include <gmp.h>
-
-#ifdef SOPLEX_WITH_BOOST
-#include <boost/multiprecision/number.hpp>
-#endif
-#include <boost/multiprecision/gmp.hpp>
-
-#endif
-*/
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,11 +17,15 @@ extern "C" {
 /* it may not match type used internally */
 typedef signed long long SoPlex_RatIntType;
 
-/* forward declare internal GMP type for simplicity */
+#ifndef __GMP_H__
+/* when GMP.h is NOT included 
+ * a hack to allow parameter passing semantics (header)
+ * it is not sufficient for C/C++ code generation
+ * forward declare a dummy struct, and singleton array
+ */
 typedef struct IGNORE_FORWORD __mpz_struct;
-/* this hack should allow mpz as parameters but not local */
-/* we dont want them local, so this is good */
 typedef __mpz_struct mpz_t[1];
+#endif
 
 /** creates new SoPlex struct **/
 void* SoPlex_create();
