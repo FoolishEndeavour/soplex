@@ -23,10 +23,10 @@ typedef signed long long SoPlex_RatIntType;
  * it is not sufficient for C/C++ code generation
  * forward declare a dummy struct, and singleton array
  */
-typedef struct IGNORE_FORWORD __mpz_struct;
-typedef __mpz_struct mpz_t[1];
-typedef struct IGNORE_FORWORD __mpq_struct;
-typedef __mpz_struct mpq_t[1];
+/* typedef struct IGNORE_FORWORD __mpz_struct; */
+typedef __mpz_struct * mpz_ptr;
+/* typedef struct IGNORE_FORWORD __mpq_struct; */
+typedef __mpq_struct * mpq_ptr;
 #endif
 
 /** creates new SoPlex struct **/

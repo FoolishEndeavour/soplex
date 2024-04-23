@@ -577,7 +577,7 @@ char* SoPlex_objValueRationalString(void* soplex)
 *   1. init before being passed
 *   2. cleared after being returned
 **/
-void SoPlex_objValueRational(void* soplex, mpq_t* objVal)
+void SoPlex_objValueRational(void* soplex, mpq_ptr objVal)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
