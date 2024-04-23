@@ -583,10 +583,6 @@ void SoPlex_objValueRational(void* soplex, mpq_t* objVal)
    throw SPxException("Rational functions cannot be used when built without Boost.");
 #endif
    /* coverity[unreachable] */
-   Rational
-   long unsigned int stringlength;
-   char* value;
-   std::string objstring;
    SoPlex* so = (SoPlex*)(soplex);
 
    // assumes objVal was inited by caller !
