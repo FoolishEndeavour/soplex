@@ -573,9 +573,9 @@ char* SoPlex_objValueRationalString(void* soplex)
 }
 
 /** Returns the rational objective value (as a mpq_t) if a primal solution is available.
-*   The caller needs to ensure the mpq_t is
-*   1. init before being passed
-*   2. cleared after being returned
+*   The caller needs to ensure the underlying mpq_struct is
+*   1. init before function is called
+*   2. cleared after function returns
 **/
 void SoPlex_objValueRational(void* soplex, mpq_ptr objVal)
 {

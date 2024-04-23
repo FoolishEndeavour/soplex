@@ -20,12 +20,12 @@ typedef signed long long SoPlex_RatIntType;
 #ifndef __GMP_H__
 /* when GMP.h is NOT included 
  * a hack to allow parameter passing semantics (header)
- * it is not sufficient for C/C++ code generation
  * forward declare a dummy struct, and singleton array
+ * note: will fail C/C++ code generation
  */
-/* typedef struct IGNORE_FORWORD __mpz_struct; */
+typedef struct IGNORE_FORWORD __mpz_struct;
 typedef __mpz_struct * mpz_ptr;
-/* typedef struct IGNORE_FORWORD __mpq_struct; */
+typedef struct IGNORE_FORWORD __mpq_struct;
 typedef __mpq_struct * mpq_ptr;
 #endif
 
@@ -193,9 +193,11 @@ double SoPlex_objValueReal(void* soplex);
 char* SoPlex_objValueRationalString(void* soplex);
 
 /** Returns the rational objective value (as a mpq_t) if a primal solution is available.
-*   The caller needs to ensure the mpq_t.
+*   The caller needs to ensure the underlying mpq_struct is
+*   1. init before function is called
+*   2. cleared after function returns
 **/
-void SoPlex_objValueRational(void* soplex, mpq_t* objective);
+void SoPlex_objValueRational(void* soplex, mpq_ptr objVal);
 
 /** changes vectors of column bounds to lb and ub **/
 void SoPlex_changeBoundsReal(void* soplex, double* lb, double* ub, int dim);
