@@ -5,6 +5,18 @@
 /* the enums are used in headers */
 #include "soplex_enumerations.h"
 
+/*
+#ifdef SOPLEX_WITH_GMP
+#include <gmp.h>
+
+#ifdef SOPLEX_WITH_BOOST
+#include <boost/multiprecision/number.hpp>
+#endif
+#include <boost/multiprecision/gmp.hpp>
+
+#endif
+*/
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -16,6 +28,12 @@ extern "C" {
 /** this is type of numerator and denominator used to interface rational solver */
 /* it may not match type used internally */
 typedef signed long long SoPlex_RatIntType;
+
+/* forward declare internal GMP type for simplicity */
+typedef struct IGNORE_FORWORD __mpz_struct;
+/* this hack should allow mpz as parameters but not local */
+/* we dont want them local, so this is good */
+typedef __mpz_struct mpz_t[1];
 
 /** creates new SoPlex struct **/
 void* SoPlex_create();
@@ -179,6 +197,11 @@ double SoPlex_objValueReal(void* soplex);
 *   The caller needs to ensure the char array is freed.
 **/
 char* SoPlex_objValueRationalString(void* soplex);
+
+/** Returns the rational objective value (as a mpq_t) if a primal solution is available.
+*   The caller needs to ensure the mpq_t.
+**/
+void SoPlex_objValueRational(void* soplex, mpq_t* objective);
 
 /** changes vectors of column bounds to lb and ub **/
 void SoPlex_changeBoundsReal(void* soplex, double* lb, double* ub, int dim);

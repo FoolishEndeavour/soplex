@@ -565,6 +565,29 @@ char* SoPlex_objValueRationalString(void* soplex)
    return value;
 }
 
+/** Returns the rational objective value (as a mpq_t) if a primal solution is available.
+*   The caller needs to ensure the mpq_t is
+*   1. init before being passed
+*   2. cleared after being returned
+**/
+void SoPlex_objValueRational(void* soplex, mpq_t* objVal)
+{
+#ifndef SOPLEX_WITH_BOOST
+   throw SPxException("Rational functions cannot be used when built without Boost.");
+#endif
+   /* coverity[unreachable] */
+   Rational
+   long unsigned int stringlength;
+   char* value;
+   std::string objstring;
+   SoPlex* so = (SoPlex*)(soplex);
+
+   // assumes objVal was inited by caller !
+   mpq_set(objVal, so->objValueRational().data());
+   // assumes objVal will be cleared by caller !
+   return;
+}
+
 /** changes vectors of column bounds to lb and ub **/
 void SoPlex_changeBoundsReal(void* soplex, double* lb, double* ub, int dim)
 {
