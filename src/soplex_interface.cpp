@@ -364,7 +364,7 @@ void SoPlex_getPrimalRational(void* soplex, int dim, mpq_ptr retVals)
    // assumes retVals was inited by caller !
    for(int i = 0; i < dim; ++i)
    {
-      mpq_set(retVals[i], primal[i]);
+      mpq_set(&retVals[i], primal[i]);
    }
    // assumes retVals will be cleared by caller !
 
