@@ -342,6 +342,37 @@ char* SoPlex_getPrimalRationalString(void* soplex, int dim)
    return rawstring;
 }
 
+/** Returns rational primal solution in an array of mpq_t.
+*   The caller needs to ensure the array is initialised and freed.
+**/
+void SoPlex_getPrimalRational(void* soplex, int dim, mpq_ptr retVals)
+{
+#ifndef SOPLEX_WITH_BOOST
+   throw SPxException("Rational functions cannot be used when built without Boost.");
+#endif
+   /* coverity[unreachable] */
+   SoPlex* so = (SoPlex*)(soplex);
+
+   /* 
+   this is double handling !!!
+   TODO: can we just get primal rational into retVal directly ? 
+   */
+
+   VectorRational primal(dim);
+   so->getPrimalRational(primal);
+
+
+   // assumes retVals was inited by caller !
+   __mpq_struct tgt[] = retVals;
+   for(int i = 0; i < dim; ++i)
+   {
+      mpq_set(tgt[i], primal[i]);
+   }
+   // assumes retVals will be cleared by caller !
+
+   return;
+}
+
 /** gets dual solution **/
 void SoPlex_getDualReal(void* soplex, double* dual, int dim)
 {
@@ -577,7 +608,7 @@ char* SoPlex_objValueRationalString(void* soplex)
 *   1. init before function is called
 *   2. cleared after function returns
 **/
-void SoPlex_objValueRational(void* soplex, mpq_ptr objVal)
+void SoPlex_objValueRational(void* soplex, mpq_ptr retVal)
 {
 #ifndef SOPLEX_WITH_BOOST
    throw SPxException("Rational functions cannot be used when built without Boost.");
@@ -585,9 +616,9 @@ void SoPlex_objValueRational(void* soplex, mpq_ptr objVal)
    /* coverity[unreachable] */
    SoPlex* so = (SoPlex*)(soplex);
 
-   // assumes objVal was inited by caller !
-   mpq_set(objVal, so->objValueRational().backend().data());
-   // assumes objVal will be cleared by caller !
+   // assumes retVal was inited by caller !
+   mpq_set(retVal, so->objValueRational().backend().data());
+   // assumes retVal will be cleared by caller !
    return;
 }
 

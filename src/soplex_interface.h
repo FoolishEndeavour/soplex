@@ -25,9 +25,20 @@ typedef signed long long SoPlex_RatIntType;
  */
 typedef struct IGNORE_FORWORD __mpz_struct;
 typedef __mpz_struct * mpz_ptr;
+typedef const __mpz_struct * mpz_srcptr;
 typedef struct IGNORE_FORWORD __mpq_struct;
 typedef __mpq_struct * mpq_ptr;
+typedef const __mpq_struct * mpq_srcptr;
 #endif
+
+/*
+  naming convention hack:
+  1: use mpq_srcptr for inputs
+  2: use mpq_src_ptr for input/ouputs and outputs
+  3: name mpq_ptr parameter retVal if it would/could/should be returned
+  3: also declaure the C function void
+  4: append "s" to retVal for plural, i.e. retVals
+*/
 
 /** creates new SoPlex struct **/
 void* SoPlex_create();
@@ -134,6 +145,7 @@ void SoPlex_getPrimalReal(void* soplex, double* primal, int dim);
 *   The caller needs to ensure the char array is freed.
 **/
 char* SoPlex_getPrimalRationalString(void* soplex, int dim);
+void SoPlex_getPrimalRational(void* soplex, int dim, mpq_ptr retVals);
 
 /** gets dual solution **/
 void SoPlex_getDualReal(void* soplex, double* dual, int dim);
@@ -197,7 +209,7 @@ char* SoPlex_objValueRationalString(void* soplex);
 *   1. init before function is called
 *   2. cleared after function returns
 **/
-void SoPlex_objValueRational(void* soplex, mpq_ptr objVal);
+void SoPlex_objValueRational(void* soplex, mpq_ptr retVal);
 
 /** changes vectors of column bounds to lb and ub **/
 void SoPlex_changeBoundsReal(void* soplex, double* lb, double* ub, int dim);
